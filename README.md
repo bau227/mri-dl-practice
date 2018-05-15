@@ -32,3 +32,7 @@ If not, can you think of any improvements/enhancements to the pipeline that you 
 Matching between dicom and contour slices requires several non-robust design decisions, including specific
 regex pattern matching of the particular file naming convention for contour files.  Data robustness could be improved
  by implementing a database to host the set of images for a more robust file search approach.
+
+# Note
+
+Full data is not uploaded for storage limit issues.  Code assumes identical file structure to given data file system.
