@@ -68,7 +68,6 @@ class Processor():
                 d_slice_id = str(int(c_slice_id.group(1)))
                 d_path_file = os.path.join(self.dicom_path, d_id, d_slice_id + '.dcm')
                 dataset_files.append((d_path_file, c_path_file))
-        print(dataset_files)
         return dataset_files
 
     def batch_generator(self, batch_sz=8):
