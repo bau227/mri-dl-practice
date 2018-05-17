@@ -55,8 +55,8 @@ Q:  Let’s assume that you want to create a system to outline the boundary of t
 A:  The i-contour generally seems to align well with a area of lighter pixel threshold within the o-contour. We find a
     Threshold value relative to the maximum intensity pixel value of the o-contour region in each image. We find this to
     be 0.35. Using this threshold, we find the dice coefficient compared with the ground truth icontour to be 0.82
-    based on a held-out test set of 50% of the data. We visualize a few examples to confirm that the threshold does in
-    fact predict decently well.
+    based on a held-out test set of 50% of the data, which demonstrates decent but not perfect performance. We visualize
+    a few examples to confirm that the threshold does in fact predict modestly well.
 
 ![Visualization of threshold](img/threshold35.png)
 
