@@ -54,14 +54,15 @@ Q:  Let’s assume that you want to create a system to outline the boundary of t
 
 A:  The i-contour generally seems to align well with a area of lighter pixel threshold within the o-contour. We find a
     Threshold value relative to the maximum intensity pixel value of the o-contour region in each image. We find this to
-    be 0.35. Using this threshold, we find the dice coefficient compared with the ground truth icontour to be 0.82
-    based on a held-out test set of 50% of the data, which demonstrates decent but not perfect performance. We visualize
-    a few examples to confirm that the threshold does in fact predict modestly well.
+    be 0.35. Using this threshold, we find the dice coefficient compared with the ground truth icontour to be 0.829 +/-
+    0.029 (sd) based on a held-out test set of 50% of the data bootstrapped across 5 runs, which demonstrates solid
+    performance. We visualize a few examples to confirm that the threshold does in fact predict modestly well.
 
-![Visualization of threshold](img/threshold35.png)
+    ![Visualization of threshold](img/threshold35.png)
 
-    Left column is the icontour ground truth overlaid with the image; Right column is the heuristic
-    threshold 0.35 prediction overlaid with the image.
+    Two examples, one in each row. Left column: Ocontour baseline annotation overlaid with image; Mid column:
+    Icontour ground truth overlaid with the image; Right column: Predicted Icontour with thresholding heuristic
+    @0.35 maxval (described in detail above) overlaid with the image.
 
 
 Q:  Do you think that any other heuristic (non-machine learning)-based approaches, besides simple thresholding,
@@ -70,8 +71,9 @@ Q:  Do you think that any other heuristic (non-machine learning)-based approache
 A:  Calculating edge of the icontour by observing boundaries between light and dark boundaries near the edge of the
     ocontour could be another useful approach.  We know that there is typically a ring of dark pixels about 10-20%
     radius thickness of the ocontour region that signals the boundary of the icontour region. Finding the inner edge
-    of this dark band, ie where pixels go from dark to light, could effectively mark the edge of the icounter region.
-    This morphological implementation is beyond the scope of this task.
+    of this dark band, i.e. where pixels go from dark to light, could effectively mark the edge of the icounter region.
+    This morphological implementation is beyond the scope of this task. However, we can clearly see this visual pattern
+    in the image overlays above.
 
 Q: What is an appropriate deep learning-based approach to solve this problem?
 
@@ -81,19 +83,31 @@ A:  An appropriate deep learning start to this problem could involve basic segme
     searching for optimal dropout, and using Batch Normalization appropriately. Input could be a simple two-channel
     image + ocontour annotation, or single channel image-only if we do not have access to the ocontour ground truth.
     A custom weighted pixel-wise cross entropy (weighted more heavily near the edge) could be used as a loss function,
-    or simply dice coefficient. Transfer learning for model weight initialization could be done using a larger dataset.
+    or simply dice coefficient loss. Transfer learning for model weight initialization could be done using a larger dataset.
 
 Q:  What are some advantages and disadvantages of the deep learning approach compared your chosen heuristic method?
 
 A:  Deep learning would automatically learn the edge detection (as well as higher level feature detection) mechanisms
-    described above.  With appropriate annotation of surrounding anatomical structures, deep learning could learn
-    how icontour region locates relative to other structure and gain improved segmentation from this explaining away
-    learning.
+    described above, leading to potentially improved performance, especially given larger dataset.  With appropriate
+    annotation of surrounding anatomical structures, deep learning could learn how icontour region locates relative to
+    other structure and gain even greater improved segmentation from this explaining away segmentation learning.
+
+    Visual review suggests that some ocontour annotations are erroneous -- for example, the ocontour annotation is
+    incorrectly laterally translated and as a result is not a complete superset of the icontour annotation (see below).
+    DL methods could learn icontour segmentation without requiring ocontour matching annotations, thus being more robust
+    to human annotation error in this task.
+
+    ![Erroneous examples](img/error35.png)
+
+    Left Column: Ocontour baseline with image overlay. Mid Column: Icontour ground truth with image overlay. Right Column:
+    Predicted Icontour with image overlay. An obvious error in Ocontour annotation leads to major error in Icontour
+    thresholding prediction.
 
     Some disadvantages include requiring a decent (typically few hundred slices minimum) along with appropriate pixel-
-    level annotations, which may be human-resource intenstive to obtain. Deep learning prediction by slice can take
+    level annotations, which may be human-resource intensive to obtain. Deep learning prediction by slice can take
     several seconds of a 3D prediction is required, which may be a clinical issue depending on time-sensitvity, whereas
-    a simple thresholding prediction could be calculated in realtime.
+    a simple thresholding prediction could be calculated in real-time. Deep learning generally requires greater care to
+    train appropriately than simple thresholding techniques.
 
 ## Note
 
