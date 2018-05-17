@@ -58,7 +58,7 @@ A: The i-contour generally seems to align well with a area of lighter pixel thre
     based on a held-out test set of 50% of the data. We visualize a few examples to confirm that the threshold does in
     fact predict decently well.
 
-    [Visualization of threshold](img/threshold35.png)
+![Visualization of threshold](img/threshold35.png)
 
     Here, the left column is the icontour ground truth overlaid with the image, and the right column is the heuristic
     threshold 0.35 prediction overlaid with the image.
