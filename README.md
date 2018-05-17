@@ -105,9 +105,9 @@ A:  Deep learning would automatically learn the edge detection (as well as highe
 
 ![Erroneous examples](img/error35.png)
 
-    Left Column: Ocontour baseline with image overlay. Mid Column: Icontour ground truth with image overlay. Right Column:
-    Predicted Icontour with image overlay. An obvious error in Ocontour annotation leads to major error in Icontour
-    thresholding prediction.
+    Left Column: Ocontour baseline with image overlay. Mid Column: Icontour ground truth with image overlay. Right
+    Column: Predicted Icontour with image overlay. An obvious error in Ocontour annotation leads to major error in
+    Icontour thresholding prediction.
 
 
 ## Note
