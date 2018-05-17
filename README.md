@@ -1,6 +1,7 @@
 # Q & A
 
-## Part 1
+## Phase 1
+### Part 1
 
 Q: How did you verify that you are parsing the contours correctly?
 
@@ -13,7 +14,7 @@ A: Simplified parse_dicom_file function to return the numpy array, instead of a 
 unnecessary usage of dictionary data structure.
 
 
-## Part 2
+### Part 2
 
 Q. Did you change anything from the pipelines built in Parts 1 to better streamline the pipeline built in Part 2?
 If so, what? If not, is there anything that you can imagine changing in the future?
@@ -33,6 +34,46 @@ Matching between dicom and contour slices requires several non-robust design dec
 regex pattern matching of the particular file naming convention for contour files.  Data robustness could be improved
  by implementing a database to host the set of images for a more robust file search approach.
 
-# Note
+## Phase 2
+
+### Part 1
+
+Q: Discuss any changes that you made to the pipeline you built in Phase 1, and why you made those changes.
+
+A: Built out single image parser to parse image+icontour+ocontour, handling the case that no ocontour is available.
+    Also, extended dataset filename aggregator to handle ocontour files.  Added toggleable feature to enable filtering the
+    dataset to handle include those images/icontours with an ocontour corollary. Unittests extended accordingly.
+
+### Part 2
+
+Q: Let’s assume that you want to create a system to outline the boundary of the blood pool (i-contours), and you
+already know the outer border of the heart muscle (o-contours). Compare the differences in pixel intensities inside
+the blood pool (inside the i-contour) to those inside the heart muscle (between the i-contours and o-contours);
+could you use a simple thresholding scheme to automatically create the i-contours, given the o-contours?
+Why or why not? Show figures that help justify your answer.
+
+A: The i-contour generally seems to align well with a area of lighter pixel threshold within the o-contour. We find a
+    Threshold value relative to the maximum intensity pixel value of the o-contour region in each image. We find this to
+    be 0.35. Using this threshold, we find the dice coefficient compared with the ground truth icontour to be 0.82
+    based on a held-out test set of 50% of the data. We visualize a few examples to confirm that the threshold does in
+    fact predict decently well.
+
+    [Visualization of threshold](img/threshold35.png)
+
+    Here, the left column is the icontour ground truth overlaid with the image, and the right column is the heuristic
+    threshold 0.35 prediction overlaid with the image.
+
+
+Q: Do you think that any other heuristic (non-machine learning)-based approaches, besides simple thresholding,
+would work in this case? Explain.
+
+A:
+
+Q: What is an appropriate deep learning-based approach to solve this problem?
+
+Q: What are some advantages and disadvantages of the deep learning approach compared your chosen heuristic method?
+
+
+## Note
 
 Full data is not uploaded for storage limit issues.  Code assumes identical file structure to given data file system.
