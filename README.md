@@ -58,7 +58,7 @@ A:  The i-contour generally seems to align well with a area of lighter pixel thr
     0.029 (sd) based on a held-out test set of 50% of the data bootstrapped across 5 runs, which demonstrates solid
     performance. We visualize a few examples to confirm that the threshold does in fact predict modestly well.
 
-    ![Visualization of threshold](img/threshold35.png)
+![Visualization of threshold](img/threshold35.png)
 
     Two examples, one in each row. Left column: Ocontour baseline annotation overlaid with image; Mid column:
     Icontour ground truth overlaid with the image; Right column: Predicted Icontour with thresholding heuristic
@@ -97,17 +97,18 @@ A:  Deep learning would automatically learn the edge detection (as well as highe
     DL methods could learn icontour segmentation without requiring ocontour matching annotations, thus being more robust
     to human annotation error in this task.
 
-    ![Erroneous examples](img/error35.png)
-
-    Left Column: Ocontour baseline with image overlay. Mid Column: Icontour ground truth with image overlay. Right Column:
-    Predicted Icontour with image overlay. An obvious error in Ocontour annotation leads to major error in Icontour
-    thresholding prediction.
-
     Some disadvantages include requiring a decent (typically few hundred slices minimum) along with appropriate pixel-
     level annotations, which may be human-resource intensive to obtain. Deep learning prediction by slice can take
     several seconds of a 3D prediction is required, which may be a clinical issue depending on time-sensitvity, whereas
     a simple thresholding prediction could be calculated in real-time. Deep learning generally requires greater care to
     train appropriately than simple thresholding techniques.
+
+![Erroneous examples](img/error35.png)
+
+    Left Column: Ocontour baseline with image overlay. Mid Column: Icontour ground truth with image overlay. Right Column:
+    Predicted Icontour with image overlay. An obvious error in Ocontour annotation leads to major error in Icontour
+    thresholding prediction.
+
 
 ## Note
 
